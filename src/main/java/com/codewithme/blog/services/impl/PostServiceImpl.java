@@ -88,8 +88,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse getAll(Integer pageNumber, Integer pageSize, String sortBy) {
-        Pageable p = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+    public PostResponse getAll(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+        Sort sort = (sortDir.equalsIgnoreCase("asc")) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+//        if (sortDir.equalsIgnoreCase("asc")) {
+//            sort = Sort.by(sortBy).ascending();
+//        } else {
+//            sort = Sort.by(sortBy).descending();
+//        }
+        Pageable p = PageRequest.of(pageNumber, pageSize, sort);
         Page<PostEntity> pagePost =  postRepository.findAll(p);
         List<PostEntity> postDtoAll = pagePost.getContent();
 
@@ -129,6 +135,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDTO> searchPost(String keyword) {
-        return null;
+//        String userEntity = userRepository.findById((String) keyword)
+//                .orElseThrow(() -> new ResourceNotFoundException(" user ", " user Id ", keyword));
+      // List<PostEntity> posts = postRepository.findByTitleContaining(keyword);
+        List<PostEntity> posts = postRepository.searchByTitle("%"+keyword+"%");
+       List<PostDTO> postDtos  = posts.stream().map((post) -> modelMapper.map(post, PostDTO.class)).collect(Collectors.toList());
+       return postDtos;
     }
 }
