@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "post")
@@ -32,7 +34,10 @@ public class PostEntity {
     private CategoryEntity category;
 
     @ManyToOne
-   // @JoinColumn(name = "user_id")
+    // @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private Set<CommentEntity> comments = new HashSet<>();
 
 }
