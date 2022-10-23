@@ -6,6 +6,7 @@ Backend blog application
   1. Người dùng có thể tạo mới, cập nhật, xóa và liệt kê các bài đăng
   2. Người dùng có thể thêm, cập nhật, xóa bình luận trên các bài viết
   3. Phân loại bài viết theo thể loại
+  4. Đăng nhập, đăng kí tài khoản   
   4. ... Đang update....  
 + Technologies :
   - Framework : Spring Boot Java Framework
@@ -16,3 +17,6 @@ Backend blog application
   - Postman Rest Client  
     
 // Đang update thêm
+- Các chức năng test postman
+1. get all user
+![img.png](img.png)
